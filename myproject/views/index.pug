@@ -1,0 +1,16 @@
+html
+  head
+    title= title
+  body
+    - var indexP = 0
+    - var index = 0
+    ul
+      for valA in authors
+        li=valA
+          ul 
+            each val, index in poems
+              if val
+                li= val
+              else
+               -break
+              
