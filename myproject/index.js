@@ -71,31 +71,20 @@ const findDocuments = function(db, callback) {
   const collection = db.collection('poetry');
   // Find some documents
   collection.find({}).toArray(function(err, docs) {
-    let authors = [];
-    let poems = [];
-    let count = 0;
-    let countPoems = 0;
+    let poetry = {};
 
-    for(let key in docs){
-      authors[count] = docs[key]["nameAuthor"];
-      for(let val in docs[key]["namePoem"]){
-        poems[countPoems] = docs[key]["namePoem"][val];
-        countPoems++;
-      }
-      poems[countPoems] = false;
-      countPoems++;
-      count++;
+    for(let val in docs){
+      let key = docs[val]["nameAuthor"];
+      poetry[key] = docs[val]["namePoem"];
     }
 
-    console.log(poems);
-
+    //console.log(poetry);
+ 
     app.get("/", (req, res) => {
       res.render("index", {
-          authors: authors,
-          poems: poems
+          values: poetry
       });
     });
-
 
     assert.equal(err, null);
     console.log("Found the following records");
@@ -105,13 +94,3 @@ const findDocuments = function(db, callback) {
 
 
 
-/*let arr_prod = ['carrot', 'potato', 'beet'];
-app.get("/", (req, res) => {
-  res.render("index", {
-      values: arr_prod
-  });
-});*/
-
-/*app.get('/', function (req, res) {
-  res.render('index', { title: 'Hey', message: 'Hello there!'});
-});*/
