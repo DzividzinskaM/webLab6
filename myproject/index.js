@@ -1,29 +1,32 @@
-const hostname = '127.0.0.1'
-const port = 3000
+const hostname = '127.0.0.1';
+const port = 3000;
 let express=require('express');
 let app=express();
 let server=require('http').createServer(app);
 app.use(express.static('public'));
 app.set("view engine", "pug");
-//app.set("views", path.join(__dirname, "views"));
+var url = require('url');
+var request = require ('request');
+var router = require('router');
+var bodyParser = require('body-parser')
+
 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-// Connection URL
-const url = 'mongodb://localhost:27017';
+
+const urlDB = 'mongodb://localhost:27017';
 
 // Database Name
 const dbName = 'myproject';
 
 // Create a new MongoClient
-const client = new MongoClient(url);
+const client = new MongoClient(urlDB);
 
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`)
    });
-
-
+   
 
 client.connect(function(err) {
 	assert.equal(null, err);
@@ -35,8 +38,39 @@ client.connect(function(err) {
     findDocuments(db, function() {
       client.close();
     });
-  });
-//});
+ // });
+  console.log(urlDB);
+});
+
+app.get("/:id", function(req, res){
+  var data = req.app.get('data');
+  var item = req.params.id;
+   res.render("../public/poemList.pug", {
+     message: item
+   });
+   console.log(item);
+});
+
+/*app.get("/", (req, res)=> {
+  var k=
+  console.log()
+});*/
+
+/*var adr = 'https://views/poemList.pug?id=vdksvl&aut=fnfdkn';
+var q = url.parse(adr, true);
+console.log("host");
+console.log(adr.href);
+console.log(q.search);
+var qdata = q.query;
+console.log(qdata.id);
+console.log(qdata.aut);*/
+
+/*app.get(, (req, res)=>{
+  res.send("hello");
+});*/
+
+
+
 
 
 const insertDocuments = function(db, callback) {
@@ -86,11 +120,10 @@ const findDocuments = function(db, callback) {
       });
     });
 
+
     assert.equal(err, null);
     console.log("Found the following records");
     callback(docs);
     });
+
 }
-
-
-

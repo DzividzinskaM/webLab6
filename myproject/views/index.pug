@@ -1,11 +1,16 @@
 html
   head
-    title= title
+    title
   body
-
+    - var count=0
     ul
       each key, index in values
         li= index
         ul
           each val in key
-            li= val
+            -link="/:id"+val
+            - count++
+              a(value=val href=link id="link-test" name=val url=val)
+                li= val
+
+ 
