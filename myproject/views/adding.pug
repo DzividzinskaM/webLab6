@@ -1,0 +1,16 @@
+html
+    head
+        title= title
+    body
+        form(action='/add', method='post')
+            p
+            | title: 
+            input(type='text', name='title', value='')
+            br
+            |          author: 
+            input(type='text', name='author', value='')
+            br
+            |           text: 
+            textarea(type='text', name='text', value='' rows=20 cols='20')
+            br
+            input(type='submit', value='Submit')

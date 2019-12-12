@@ -10,6 +10,7 @@ var request = require ('request');
 var router = require('router');
 var bodyParser = require('body-parser');
 const detailPage = require('./detail');
+const addingPoem = require('./add');
 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
@@ -43,6 +44,7 @@ client.connect(function(err) {
 
 });
 
+app.use(addingPoem);
 app.use(detailPage);
 
 const insertDocuments = function(db, callback) {

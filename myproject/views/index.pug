@@ -2,6 +2,7 @@ html
   head
     title
   body
+    a(href='/add') Додати
     - var count=0
     ul
       each key, index in values
@@ -12,5 +13,6 @@ html
             - count++
               a(value=val href=link id="link-test" name=val url=val)
                 li= val
+
 
  
