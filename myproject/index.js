@@ -8,8 +8,8 @@ app.set("view engine", "pug");
 var url = require('url');
 var request = require ('request');
 var router = require('router');
-var bodyParser = require('body-parser')
-
+var bodyParser = require('body-parser');
+const detailPage = require('./detail');
 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
@@ -40,38 +40,10 @@ client.connect(function(err) {
     });
  // });
   console.log(urlDB);
+
 });
 
-app.get("/:id", function(req, res){
-  var data = req.app.get('data');
-  var item = req.params.id;
-   res.render("../public/poemList.pug", {
-     message: item
-   });
-   console.log(item);
-});
-
-/*app.get("/", (req, res)=> {
-  var k=
-  console.log()
-});*/
-
-/*var adr = 'https://views/poemList.pug?id=vdksvl&aut=fnfdkn';
-var q = url.parse(adr, true);
-console.log("host");
-console.log(adr.href);
-console.log(q.search);
-var qdata = q.query;
-console.log(qdata.id);
-console.log(qdata.aut);*/
-
-/*app.get(, (req, res)=>{
-  res.send("hello");
-});*/
-
-
-
-
+app.use(detailPage);
 
 const insertDocuments = function(db, callback) {
   // Get the documents collection
